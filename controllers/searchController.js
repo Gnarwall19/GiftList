@@ -2,12 +2,9 @@ var express = require("express");
 var multiparty = require("multiparty");
 var router = express.Router();
 
-// Import the model (cat.js) to use its database functions.
 var gift = require("../models/gift.js");
 var user = require("../models/user.js");
 var manipulateData = require("./helpers.js");
-//var cloudinary = require("./imghelper");
-// Create all our routes and set up logic within those routes where required.
 
 var cloudinary = require("cloudinary");
 
@@ -48,23 +45,15 @@ router.get("/search/:search", function(req, res) {
   });
 });
 
-// router.get("/results", function(req, res) {
-//   var vals = res.locals.finalArray;
-//   gift.searched(vals, function returnDataToController(data) {
-//     res.json(data);
-//   });
-// });
 router.get("/list", function(req, res) {
   gift.all(function returnDataToController(data) {
     var info = { gifts: [] };
 
     for (var i = 0; i < data.length; i += 1) {
-      // Get the current gift.
       var currentGift = data[i];
       info.gifts.push(currentGift);
     }
     console.log(info);
-    //console.log(info);
     res.render("list", info);
   });
 });
@@ -74,26 +63,17 @@ router.get("/all", function(req, res) {
     var hbsObject = {
       gifts: data
     };
-    // res.render("index");
-    // console.log(hbsObject);
     res.json(hbsObject);
   });
 });
 
 router.post("/gift", function(req, res) {
-  // gift.create()
-
   var form = new multiparty.Form();
 
   form.parse(req, function(err, fields, files) {
-    //console.log("files", files);
-
     console.log(fields);
-    //return res.status(200).end();
 
     cloudinary.uploader.upload(files.upload[0].path, function(result) {
-      //console.log(result);
-
       var cols =
         "title, city_state, category, contact, item_description, img_link";
       var vals = [
@@ -134,12 +114,7 @@ router.get("/item/:id", function(req, res) {
   gift.findOne(id, function returnDataToController(result) {
     var hbsObject = result[0];
     console.log(hbsObject);
-    // res.render("item", result);
     res.render("item", hbsObject);
   });
 });
-
-// router.get("*", function(req, res) {
-//   res.render("index");
-// });
 module.exports = router;

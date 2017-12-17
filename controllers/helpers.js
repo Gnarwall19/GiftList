@@ -17,7 +17,6 @@ function manipulateData(data, searched) {
     }
   }
 
-  // for (q = 0; q < searchedArry.length; q++) {}
   let finalArry = [...searchedArry, ...titleArry];
   console.log(finalArry);
 

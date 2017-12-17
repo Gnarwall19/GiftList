@@ -11,15 +11,6 @@ function printQuestionMarks(num) {
 }
 
 var orm = {
-  // selectWhere: function(tableInput, colToSearch, valOfCol) {
-  //   var queryString = "SELECT * FROM ?? WHERE ?? = ?";
-  //   connection.query(queryString, [tableInput, colToSearch, valOfCol], function(
-  //     err,
-  //     result
-  //   ) {
-  //     return result;
-  //   });
-  // },
   all: function(tableInput, returnDataToModel) {
     var queryString = "SELECT * FROM ??;";
     connection.query(queryString, [tableInput], function(err, result) {
